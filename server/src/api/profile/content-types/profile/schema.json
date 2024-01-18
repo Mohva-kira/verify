@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "profiles",
+  "info": {
+    "singularName": "profile",
+    "pluralName": "profiles",
+    "displayName": "profile"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nom": {
+      "type": "string"
+    },
+    "prenom": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "numero_chassis": {
+      "type": "string"
+    },
+    "Adresse": {
+      "type": "text"
+    }
+  }
+}
