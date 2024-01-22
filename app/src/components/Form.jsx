@@ -25,7 +25,7 @@ const Form = ({add, id, addProfile}) => {
             await add({data}).then(rep => console.log('reponse', rep))
             console.log('num vignette',)
 
-            //  navigate('/vignette/' + noVignette)
+             navigate('/home' )
         } catch (error) {
             
         }
