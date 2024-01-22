@@ -12,7 +12,7 @@ export const vignetteApi = createApi({
   },
   endpoints: (builder) => ({
     getVignette: builder.query({
-      query: (id) => `vignettes?filters[numero][$eq]=00${id}&&populate=*`,
+      query: (id) => `vignettes?filters[id_vignette][$eq]=${id}&&populate=*`,
     }),
     addVignette: builder.mutation({
         query: (data) => ({

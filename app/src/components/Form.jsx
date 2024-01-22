@@ -21,7 +21,7 @@ const Form = ({add, id, addProfile}) => {
         try {
              await addProfile({data: dataProfile}).then(rep =>{ console.log('profile re', rep); profileId = rep?.data.data.id})
              console.warn('profile ID', profileId)
-             let data = {numero: '00' + noVignette, profile: profileId}
+             let data = {numero: '00' + noVignette, id_vignette: id, profile: profileId}
             await add({data}).then(rep => console.log('reponse', rep))
             console.log('num vignette',)
 
