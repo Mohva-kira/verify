@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Form = ({add, id, addProfile}) => {
 
@@ -6,6 +7,8 @@ const Form = ({add, id, addProfile}) => {
     const [prenom, setPrenom] = useState(null)
     const [chassis, setChassis] = useState(null)
     const [phone, setPhone] = useState(null)
+    const [noVignette, setNoVignette] = useState(null)
+    const navigate = useNavigate()
     console.log(id)
     const handleSubmit = async () => {
 
@@ -18,8 +21,11 @@ const Form = ({add, id, addProfile}) => {
         try {
              await addProfile({data: dataProfile}).then(rep =>{ console.log('profile re', rep); profileId = rep?.data.data.id})
              console.warn('profile ID', profileId)
-             let data = {numero: '00' + id, profile: profileId}
+             let data = {numero: '00' + noVignette, profile: profileId}
             await add({data}).then(rep => console.log('reponse', rep))
+            console.log('num vignette',)
+
+            //  navigate('/vignette/' + noVignette)
         } catch (error) {
             
         }
@@ -55,6 +61,24 @@ const Form = ({add, id, addProfile}) => {
               </div>
               <div class="divide-y divide-gray-200">
                 <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                <div class="relative">
+                    <input
+                      autocomplete="off"
+                      id="novignette"
+                      name="novignette"
+                      type="text"
+                      class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                      placeholder="Numero de vignette"
+
+                      onChange={(e) => setNoVignette(e.target.value)}
+                    />
+                    <label
+                      for="nom"
+                      class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                    >
+                      Numero de vignette
+                    </label>
+                  </div>
                   <div class="relative">
                     <input
                       autocomplete="off"

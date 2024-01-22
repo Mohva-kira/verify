@@ -30,7 +30,7 @@ const authSlice = createSlice({
 
 export const { setCredentials, logOut} = authSlice.actions
 export default authSlice.reducer
-const auth = localStorage.getItem('auth') && JSON.parse(localStorage.getItem('auth'))
+const auth =( localStorage.getItem('auth') && localStorage.getItem('auth') !== "undefined"  ) && JSON.parse(localStorage.getItem('auth'))
 
 console.log('auth', auth)
 export const selectCurrentUser = (state) => state?.auth ? state.auth.user : auth?.user

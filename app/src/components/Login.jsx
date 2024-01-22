@@ -9,14 +9,22 @@ const Login = () => {
   const [login ] = useLoginMutation()
   const navigate = useNavigate()
   const prevLocation = localStorage.getItem('location')
+  const [errMsg, setErrMsg] = useState(false)
   const handleSubmit = async () => {
     const data = {identifier, password}
     try {
-      await login(data).then(rep => {
+      await login(data)
+      .then(rep => {
+        if(rep?.error?.status == 400) setErrMsg(true)        
         console.log('reponse', rep)
-        localStorage.setItem('auth', JSON.stringify(rep.data))
-        navigate(prevLocation)
+        rep?.data && localStorage.setItem('auth', JSON.stringify(rep.data))
+         prevLocation ?  navigate(prevLocation) : rep?.data && navigate('/home')
+        // console.log('error', rep.error.status)
+       
+       
       })
+    
+    
     } catch (error) {
       console.log('err', error)
     }
@@ -24,9 +32,32 @@ const Login = () => {
   return (
     <div>
       <div class="min-h-screen py-6 flex flex-col justify-center sm:py-12">
+        {/* {console.log('error', errMsg)} */}
         <div class="relative py-3 sm:max-w-xl sm:mx-auto">
+          
           <div class="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
           <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+          { errMsg && 
+           <div
+           class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+           role="alert"
+         >
+           <svg
+             class="flex-shrink-0 inline w-4 h-4 me-3"
+             aria-hidden="true"
+             xmlns="http://www.w3.org/2000/svg"
+             fill="currentColor"
+             viewBox="0 0 20 20"
+           >
+             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+           </svg>
+           <span class="sr-only">Info</span>
+           <div>
+             <span class="font-medium">Mot de passe ou email incorrecte!</span> Veuillez réessayer.
+           </div>
+         </div>
+
+          }
             <div
               class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
               role="alert"

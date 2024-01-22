@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png"
-import { useLocation, useNavigate,  } from "react-router-dom";
+import { Link, useLocation, useNavigate,  } from "react-router-dom";
 
 
 const Header = ({history}) => {
 
     const [show, setShow] = useState(false)
-    const auth = JSON.parse(localStorage.getItem('auth'))
+    const auth = localStorage.getItem('auth') && localStorage.getItem('auth') !== "undefined" ? JSON.parse(localStorage.getItem('auth')) : null
     // const navigate = useNavigate()
     console.log(show)
     console.log('auh', auth)
+
+    
   return (
     
       <header className="bg-white ">
@@ -58,12 +60,12 @@ const Header = ({history}) => {
          
           </div>
          {!auth && <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-              Log in <span aria-hidden="true">&rarr;</span>
+            <a onClick={() => window.location.href = '/auth'} className="text-sm font-semibold leading-6 text-gray-900">
+              Connexion <span aria-hidden="true">&rarr;</span>
             </a>
           </div> }
           {auth && <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+            <a onClick={() => window.location.href = '/auth'} className="text-sm font-semibold leading-6 text-gray-900">
               Deconnexion <span aria-hidden="true">&rarr;</span>
             </a>
           </div> }
@@ -112,7 +114,7 @@ const Header = ({history}) => {
                 </div>
                 {auth ? <div className="py-6">
                   <a
-                    href="#"
+                    to='/auth'
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     onClick={() => {localStorage.clear(); window.location.href = '/auth'}}
                   >
@@ -120,11 +122,12 @@ const Header = ({history}) => {
                   </a>
                 </div> : <div className="py-6">
                   <a
-                    href="#"
+                    onClick={() => window.location.href = '/auth'}
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Connexion
                   </a>
+                  
                 </div>}
               </div>
             </div>

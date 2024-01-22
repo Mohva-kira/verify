@@ -14,7 +14,8 @@ import Header from './components/Header.jsx';
 import { store } from './app/store'
 import { Provider } from 'react-redux'
 import RequireAuth from './components/RequireAuth.jsx';
-
+import LogOut from './components/LogOut.jsx';
+import Home from './pages/home/Home.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,12 +27,23 @@ const router = createBrowserRouter([
     element: <Auth />,
   },  
   {
+    path: "/vignettes/:id",
+    element: <RequireAuth> <Vignette /></RequireAuth>,
+  },
+  {
     path: "/vignette/:id",
     element: <RequireAuth> <Vignette /></RequireAuth>,
   },
   {
     path: "/addVignette",
     element: <AddVignette />,
+  },{
+    path: "/home",
+    element: <Home />,
+  },
+  {
+    path: "/deconnexion",
+    element: <LogOut />,
   },
 ]);
 

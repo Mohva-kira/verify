@@ -6,9 +6,15 @@ import { useGetVignetteQuery } from "../redux/vignette";
 const Vignette = () => {
     const {id} = useParams()
     const navigate = useNavigate()
-    const {data, isLoading, isSuccess, error} = useGetVignetteQuery(id)
+    const {data, isLoading, isSuccess, error, refetch} = useGetVignetteQuery(id)
  
-   if( error && !data || data?.data.length === 0) navigate('/addVignette', {state :{userId: id}} )
+    // if()
+   if( error && !data || data?.data.length === 0) {
+    
+    navigate('/addVignette', {state :{userId: id}} )
+  
+  }
+  
   return (
     <div className="flex items-center justify-center">
     

@@ -9,7 +9,7 @@ const RequireAuth = ({children}) => {
     const dispatch = useDispatch()
     const stateToken = selectCurrentToken()
     // const location = useLocation()
-    const storageAuth = JSON.parse(localStorage.getItem('auth'))
+    const storageAuth = localStorage.getItem('auth') && localStorage.getItem('auth') !== "undefined"? JSON.parse(localStorage.getItem('auth')) : null
     const token = stateToken? stateToken: storageAuth?.jwt 
     console.log('token !!!', storageAuth?.jwt)
     const location = useLocation()
