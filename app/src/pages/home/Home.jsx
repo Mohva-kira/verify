@@ -1,6 +1,10 @@
 import React from 'react'
 import './home.css'
+import { useLocation } from 'react-router-dom'
 const Home = () => {
+  const location = useLocation()
+  const result = location?.state?.result
+  console.log(result)
   return (
     <div>
         

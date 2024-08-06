@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { toast } from 'react-toastify'
 const Form = ({add, id, addProfile}) => {
 
     const [nom, setNom] = useState(null)
@@ -8,24 +8,29 @@ const Form = ({add, id, addProfile}) => {
     const [chassis, setChassis] = useState(null)
     const [phone, setPhone] = useState(null)
     const [noVignette, setNoVignette] = useState(null)
+    const [disabled, setDisabled] = useState(false)
     const navigate = useNavigate()
+
     console.log(id)
     const handleSubmit = async () => {
 
-       
+        setDisabled(true)
         const dataProfile = {nom, prenom, phone, numero_chassis: chassis}
         
        
         let profileId 
         
         try {
+           let result 
              await addProfile({data: dataProfile}).then(rep =>{ console.log('profile re', rep); profileId = rep?.data.data.id})
              console.warn('profile ID', profileId)
              let data = {numero: '00' + noVignette, id_vignette: id, profile: profileId}
-            await add({data}).then(rep => console.log('reponse', rep))
-            console.log('num vignette',)
+            await add({data}).then(rep => {result = rep, toast.success(`Vignette No ${noVignette} enrégistrer`)})
+            
+            // console.log('num vignette',)
+            setDisabled(false)
 
-             navigate('/home' )
+             navigate('/home', {state: {result}} )
         } catch (error) {
             
         }
@@ -154,7 +159,7 @@ const Form = ({add, id, addProfile}) => {
 
                   
                   <div class="relative">
-                    <button class="bg-cyan-500 text-white rounded-md px-2 py-1" onClick={() => handleSubmit()}>
+                    <button disabled={disabled} class="bg-cyan-500 text-white rounded-md px-2 py-1" onClick={() => handleSubmit()}>
                       Enregistrer
                     </button>
                   </div>

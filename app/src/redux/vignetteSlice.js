@@ -5,7 +5,7 @@ const initialState = {
 }
 
 export const vignetteSlice = createSlice({
-  name: 'counter',
+  name: 'vignette',
   initialState,
   reducers: { },
 })

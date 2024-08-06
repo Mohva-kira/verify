@@ -16,7 +16,8 @@ import { Provider } from 'react-redux'
 import RequireAuth from './components/RequireAuth.jsx';
 import LogOut from './components/LogOut.jsx';
 import Home from './pages/home/Home.jsx';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,6 +51,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
+    <ToastContainer />
     <Header/>
     <RouterProvider router={router} />
     </Provider>

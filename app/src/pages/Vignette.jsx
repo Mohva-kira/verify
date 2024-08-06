@@ -1,19 +1,31 @@
 import React, { useEffect } from "react";
 import Form from "../components/Form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useGetVignetteQuery } from "../redux/vignette";
+
 
 const Vignette = () => {
     const {id} = useParams()
     const navigate = useNavigate()
+    const location = useLocation()
     const {data, isLoading, isSuccess, error, refetch} = useGetVignetteQuery(id)
- 
+    
     // if()
+    useEffect(() => {
+
+      refetch()
+    
+      }, [id])
+
    if( error && !data || data?.data.length === 0) {
     
     navigate('/addVignette', {state :{userId: id}} )
   
   }
+
+  
+
+  
   
   return (
     <div className="flex items-center justify-center">
